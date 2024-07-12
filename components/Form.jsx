@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
-import { SafeAreaView, StyleSheet, TextInput, Button, View, Text, Alert, Image, KeyboardAvoidingView, Platform, TouchableOpacity } from 'react-native';
- 
+import { SafeAreaView, StyleSheet, TextInput, Button, View, Text, Alert, Image, KeyboardAvoidingView, Platform, TouchableOpacity, Switch } from 'react-native';
+// import Toggle from './Toggle';
+import SwitchToggle from 'react-native-switch-toggle';
+
 export default function Form() {
   const [formData, setFormData] = useState({
     name: '',
     username: '',
     email: '',
-    password: ''
+    password: '',
+    gender: 'Male',
   });
   const [errors, setErrors] = useState({});
+//   const [gender, setGender] = useState('Male');
 
   const handleInputChange = (field, value) => {
     setFormData({
@@ -71,12 +75,16 @@ export default function Form() {
     setErrors(newErrors);
     return valid;
   };
+  const handleToggle = () => {
+    const newGender = formData.gender === 'Male' ? 'Female' : 'Male';
+    setFormData({ ...formData, gender: newGender });
+  };
 
 
   return (
 
     // <SafeAreaView style={styles.container}>
-        <KeyboardAvoidingView behavior='padding'style={[styles.border,styles.container]} keyboardVerticalOffset={Platform.OS=='ios'?100:0}>
+    <KeyboardAvoidingView behavior='padding'style={[styles.border,styles.container]} keyboardVerticalOffset={Platform.OS=='ios'?100:0}>
       <Text style={styles.header}>Sign Up</Text>
       <View style={styles.imageDiv}>
       <Image source={require('../assets/cartoon3.png')}   style={styles.image} ></Image>
@@ -138,10 +146,31 @@ export default function Form() {
         }}
       />
       {errors.password ? <Text style={styles.errorStyle}>{errors.password}</Text> : null}
+      {/* <Toggle/> */}
+      <View style={styles.toggleContainer}>
+        <View style={styles.genderContainer}>
+          <Text style={[styles.genderText, formData.gender === 'Male' && styles.selectedGenderText]}>Male</Text>
+          <View style={styles.switchContainer}>
+            <Switch
+              value={formData.gender === 'Female'}
+              onValueChange={handleToggle}
+              trackColor={{ false: 'blue', true: 'blue' }}
+              thumbColor="white"
+              style={styles.switch}
+            />
+          </View>
+          <Text style={[styles.genderText, formData.gender === 'Female' && styles.selectedGenderText]}>Female</Text>
+        </View>
+      </View>
+      <Text style={styles.selectedGender}>Selected Gender: {formData.gender}</Text>
+      
+      
+    {/* <Text style={styles.selectedGender}>Selected Gender: {formData.gender}</Text> */}
       <TouchableOpacity style={styles.button} onPress={handleSubmit}>
         <Text style={styles.buttonText}>Submit</Text>
       </TouchableOpacity>
-      </KeyboardAvoidingView>
+      
+ </KeyboardAvoidingView>
     // </SafeAreaView>
   );
 }
@@ -199,10 +228,52 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 1,
   },
   buttonText: {
     color: 'white',
     fontSize: 18,
+  },
+  toggleContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  switchContainer: {
+    width: 60,
+    height: 30,
+    borderRadius: 15,
+    padding: 5,
+    margin:5
+  },
+  switchCircle: {
+    width: 25,
+    height: 25,
+    borderRadius: 12.5,
+  },
+  genderContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: "100%",
+    alignItems: 'center',
+    // marginLeft: 10,
+  },
+  genderText: {
+    fontSize: 18,
+    color: '#333',
+  },
+  selectedGenderText: {
+    color: 'blue',
+    fontWeight: 'bold',
+  },
+  selectedGender: {
+    fontSize: 18,
+    marginTop: 20,
+  },
+  switchContainer: {
+    transform: [{ scaleX: 1 }, { scaleY: 1 }],
+    margin: 5,
+  },
+  switch: {
+    transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }],
   },
 });
