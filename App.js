@@ -8,6 +8,8 @@ import listData from "./data.json"
 import Card from './components/Card';
 import { useEffect, useState } from 'react';
 import Form from './components/Form';
+import PieChartExample from './components/PieChartExample';
+import GetPosts from './components/GetPosts';
 
 
 export default function App() {
@@ -103,7 +105,9 @@ export default function App() {
           />)
         } */}
       
-        <Form/>
+        {/* <Form/> */}
+        {/* <PieChartExample/> */}
+        <GetPosts/>
 
   </SafeAreaView>
   );

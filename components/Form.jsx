@@ -149,12 +149,12 @@ export default function Form() {
       {/* <Toggle/> */}
       <View style={styles.toggleContainer}>
         <View style={styles.genderContainer}>
-          <Text style={[styles.genderText, formData.gender === 'Male' && styles.selectedGenderText]}>Male</Text>
+          <Text style={[styles.genderText, formData.gender === 'Male' && styles.selectedGenderMaleText]}>Male</Text>
           <View style={styles.switchContainer}>
             <Switch
               value={formData.gender === 'Female'}
               onValueChange={handleToggle}
-              trackColor={{ false: 'blue', true: 'blue' }}
+              trackColor={{ false: 'blue', true: 'green' }}
               thumbColor="white"
               style={styles.switch}
             />
@@ -246,9 +246,9 @@ const styles = StyleSheet.create({
     margin:5
   },
   switchCircle: {
-    width: 25,
-    height: 25,
-    borderRadius: 12.5,
+    width: 22,
+    height: 20,
+    borderRadius: 13,
   },
   genderContainer: {
     flexDirection: 'row',
@@ -262,6 +262,10 @@ const styles = StyleSheet.create({
     color: '#333',
   },
   selectedGenderText: {
+    color: 'green',
+    fontWeight: 'bold',
+  },
+  selectedGenderMaleText: {
     color: 'blue',
     fontWeight: 'bold',
   },
@@ -274,6 +278,6 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   switch: {
-    transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }],
+    transform: [{ scaleX: 1.8 }, { scaleY: 1.5 }],
   },
 });
